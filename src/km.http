@@ -1,0 +1,271 @@
+# save or update main
+# type：main. 主页 theme. 主题 course. 课程 card. 知识卡片 question. 问题及答案
+# conten 字段注解如下
+# tg昵称： ${nickName}
+# tgId： ${tgId}
+# 绑定账户： ${pId}
+# 积分： ${score}
+# 记录id替换: ${this_id}
+# 一级按钮类型：nation, url, callback
+# callback二级特殊按钮 1.绑定用户，2.主题列表，3. 开始答题，4. 答案选项
+
+保存节点：
+0. 数据库节点增加 origin_id 字段
+1. 接口增加originId字段
+2. 做全量删除，批量插入
+3. 按钮url.this_id replace origin_id
+
+查询节点:
+1. 返回list
+2. 增加originId
+
+机器人查询逻辑改：
+1. parent_id 变 origin_id
+2. 增加语言的筛选条件
+
+#query theme
+GET http://localhost:8080/ms/botCoin/questionRela/list?type=main&parentId=-1&nation=ENG1
+#save main
+POST http://localhost:8080/ms/botCoin/questionRela/saveOrUpdate?originId=JN3Qne
+Content-Type: application/json
+[
+{
+  "type": "main",
+  "nation": "CHN",
+  "parentId": -1,
+  "content": "爱称: ${nickName}\nTGID: ${tgId}\noutterId: ${pId}\nscore: ${score}\n 这里是一些基本信息\n/start",
+  "buttonList": [
+    {
+      "text": "ENGLISH",
+      "type": "nation",
+      "url": "/nation ENG"
+    },
+    {
+      "text": "中文",
+      "type": "nation",
+      "url": "/nation CHN"
+    },
+    {
+      "text": "加入群聊",
+      "type": "url",
+      "url": "https://t.me/emacs_zh"
+    },
+    {
+      "text": "绑定帐号",
+      "type": "callback",
+      "url": "/bind  KuCoin UID"
+    },
+    {
+      "text": "主题列表",
+      "type": "callback",
+      "url": "{\"id\":\"${this_id}\",\"type\":\"/theme\"}"
+    }
+  ]
+},
+{
+  "type": "main",
+  "nation": "ENG",
+  "parentId": -1,
+  "content": "爱称: ${nickName}\nTGID: ${tgId}\noutterId: ${pId}\nscore: ${score}\nSignInIntegralToParticipateInTheActivitiesOfGrabARedEnvelopeToDeductPoints,WhenInAGroupChatCanObtainTheIntegralnthis is some info\n/start",
+  "buttonList": [
+    {
+      "text": "ENGLISH",
+      "type": "nation",
+      "url": "/nation ENG"
+    },
+    {
+      "text": "中文",
+      "type": "nation",
+      "url": "/nation CHN"
+    },
+    { "text": "go tg group",
+      "type": "url",
+      "url": "https://t.me/emacs_zh"
+    },
+    {
+      "text": "bound account",
+      "type": "callback",
+      "url": "/bind  KuCoin UID"
+    },
+    {
+      "text": "theme list",
+      "type": "callback",
+      "url": "{\"id\":\"${this_id}\",\"type\":\"/theme\"}"
+    }
+  ]
+}
+]
+
+#query theme
+GET http://localhost:8080/ms/botCoin/questionRela/list?type=theme&originId=5a479bd0-042f-49c8-bdbe-f07265185713
+
+# save or update theme
+POST http://localhost:8080/ms/botCoin/questionRela/saveOrUpdate
+Content-Type: application/json
+[
+  {
+    "content": "中庸管理之道",
+    "nation": "CHN",
+    "parentId": "JN3Qne",
+    "type": "theme"
+  },
+  {
+    "content": "the way of middle management",
+    "nation": "ENG",
+    "parentId": "JN3Qne",
+    "type": "theme"
+  }
+]
+
+#query course
+GET http://localhost:8080/ms/botCoin/questionRela/list?type=course&parentId=44
+
+# save or update course
+POST http://localhost:8080/ms/botCoin/questionRela/saveOrUpdate
+Content-Type: application/json
+[
+  {
+    "content": "java 语言设计思想",
+    "nation": "CHN",
+    "parentId": "YFZrAj",
+    "type": "course"
+  },
+  {
+    "content": "java LanguageDesign mind",
+    "nation": "ENG",
+    "parentId": "YFZrAj",
+    "type": "course"
+  }
+]
+
+#query theme
+GET http://localhost:8080/ms/botCoin/questionRela/top/list?type=card
+
+#query card
+GET http://localhost:8080/ms/botCoin/questionRela/list?type=card&parentId=VfuUze&nation=CHN
+
+# card
+# java card1 originId=FZ7bIr
+# java card2 originId=NrAFzy
+POST http://localhost:8080/ms/botCoin/questionRela/saveOrUpdate
+Content-Type: application/json
+[
+{
+  "type": "card",
+  "nation": "CHN",
+  "parentId": "VfuUze",
+  "content": "在桌面系统上，独立的Java程序还是相对少见这是因为Java平台的运行开销较大，而许多人的电脑上没有安装Java，由于网络带宽在以前较小，下载Java曾经是个耗时的事情。但是随着计算机计算能力、网络带宽在10年中获取了很大的进步，同时虚拟机和编译器的质量得到了提高，许多应用程序得到了广泛的使用",
+  "buttonList": [
+    {
+      "text": "START",
+      "type": "callback",
+      "url": "{\"type\":\"/question\",\"id\":\"${this_id}\"}"
+    }
+  ]
+},
+{
+  "type": "card",
+  "nation": "ENG",
+  "parentId": "VfuUze",
+  "content": "On desktop systems, independent Java programs are still relatively rare. This is because the running overhead of the Java platform is large, and many people do not have Java installed on their computers. Because the network bandwidth was small in the past, downloading Java was once a time-consuming task. However, as computer computing power and network bandwidth have made great progress in 10 years, and the quality of virtual machines and compilers has been improved, many applications have been widely used.",
+  "buttonList": [
+    {
+      "text": "START",
+      "type": "callback",
+      "url": "{\"type\":\"/question\",\"id\":\"${this_id}\"}"
+    }
+  ]
+}
+]
+
+#query question
+GET http://localhost:8080/ms/botCoin/questionRela/list?type=question&parent_id=ieIFRr&nation=CHN
+# /questionRela/test/save
+POST http://localhost:8080/ms/botCoin/questionRela/saveOrUpdate
+Content-Type: application/json
+[
+{
+  "type": "question",
+  "nation": "CHN",
+  "parentId": "FZ7bIr",
+  "content": "这是第二题 java 语言是谁创建的?",
+  "buttonList": [
+    {
+      "text": "A.乔布斯",
+      "right": "0",
+      "type": "callback",
+      "url": "{\"type\":\"/answer\",\"id\":\"${this_id}\",\"right\":0}"
+    },
+    {
+      "text": "B.C罗",
+      "type": "callback",
+      "right": "0",
+      "url": "{\"type\":\"/answer\",\"id\":\"${this_id}\",\"right\":0}"
+    },
+    {
+      "text": "C.马云",
+      "type": "callback",
+      "right": "0",
+      "url": "{\"type\":\"/answer\",\"id\":\"${this_id}\",\"right\":0}"
+    },
+    {
+      "text": "D.高斯林",
+      "right": "1",
+      "type": "callback",
+      "url": "{\"type\":\"/answer\",\"id\":\"${this_id}\",\"right\":1}"
+    }
+  ]
+},
+{
+  "type": "question",
+  "nation": "ENG",
+  "parentId": "FZ7bIr",
+  "content": "this is the second question Who created the java language?",
+  "buttonList": [
+    {
+      "text": "A.steveJobs",
+      "right": "0",
+      "type": "callback",
+      "url": "{\"type\":\"/answer\",\"id\":\"${this_id}\",\"right\":0}"
+    },
+    {
+      "text": "B.ronaldo",
+      "type": "callback",
+      "right": "0",
+      "url": "{\"type\":\"/answer\",\"id\":\"${this_id}\",\"right\":0}"
+    },
+    {
+      "text": "C.Jack Ma",
+      "type": "callback",
+      "right": "0",
+      "url": "{\"type\":\"/answer\",\"id\":\"${this_id}\",\"right\":0}"
+    },
+    {
+      "text": "D.gosling",
+      "right": "1",
+      "type": "callback",
+      "url": "{\"type\":\"/answer\",\"id\":\"${this_id}\",\"right\":1}"
+    }
+  ]
+}
+]
+
+#query theme
+GET http://localhost:8080/ms/botCoin/questionRela/list?id=99
+
+#delete
+GET http://localhost:8080/ms/botCoin/questionRela/delete?id=99
+
+#score list
+GET http://localhost:8080/ms/botCoin/userScore/list
+
+#score list export
+GET http://localhost:8080/ms/botCoin/userScore/export
+
+#score list
+POST http://localhost:8080/ms/botCoin/userScore/update
+Content-Type: application/json
+{
+  "score": 4,
+  "userId": 600549346
+}
