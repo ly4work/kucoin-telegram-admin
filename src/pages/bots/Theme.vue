@@ -1,5 +1,5 @@
 <template>
-  <main-layout>
+  <div>
     <el-row :gutter="20">
       <!-- <el-col :span="5">
         <el-select v-model="criteria.nation">
@@ -149,12 +149,12 @@
         ></el-option>
       </el-select>
     </el-dialog>
-  </main-layout>
+  </div>
 </template>
 
 <script>
-import RestApi from "../../base/RestApi";
-import MainLayout from "../../layouts/MainLayout";
+// import RestApi from "../../base/RestApi";
+// import MainLayout from "../../layouts/MainLayout";
 import _ from "lodash";
 import languageList, { languageMap } from "../../profile/lang";
 import http from "../../http";
@@ -164,7 +164,7 @@ import { getQueryString } from "../../utils";
 export default {
   name: "theme",
   components: {
-    MainLayout,
+    // MainLayout,
   },
   data: function() {
     return {
@@ -391,7 +391,7 @@ export default {
       let loadingInstance = Loading.service({});
       const editBodyInfo = _.cloneDeep(this.editBodyInfo);
       //  外层循环editBodyInfo
-      editBodyInfo.editList.forEach((o, i) => {
+      editBodyInfo.editList.forEach((o) => {
         o.type = "theme";
         // o.parentId = o.parentId;
       });

@@ -1,5 +1,5 @@
 <template>
-  <main-layout>
+  <div>
     <el-row :gutter="20">
       <!-- <el-col :span="6">
         <el-select v-model="criteria.nation">
@@ -219,15 +219,15 @@
         ></el-option>
       </el-select>
     </el-dialog>
-  </main-layout>
+  </div>
 </template>
 
 <script>
-import RestApi from "../../base/RestApi";
-import MainLayout from "../../layouts/MainLayout";
+// import RestApi from "../../base/RestApi";
+// import MainLayout from "../../layouts/MainLayout";
 import _ from "lodash";
 import languageList, { languageMap } from "../../profile/lang";
-import mixinButton, { buttonMap } from "../../profile/buttons";
+import mixinButton from "../../profile/buttons";
 import { getHashCode } from "../../utils/index";
 import marked from "marked";
 import http from "../../http";
@@ -237,7 +237,7 @@ import { getQueryString } from "../../utils";
 export default {
   name: "questions",
   components: {
-    MainLayout,
+    // MainLayout,
   },
   data: function() {
     return {
@@ -478,7 +478,7 @@ export default {
           },
         ],
       };
-      item.relaList.forEach((o, i) => {
+      item.relaList.forEach((o) => {
         const buttonList = JSON.parse(o.buttonArray);
         console.log("序列化前: buttonList= >", buttonList);
         buttonList.forEach((btn, index) => {
@@ -586,7 +586,7 @@ export default {
       const editBodyInfo = _.cloneDeep(this.editBodyInfo);
 
       //  外层循环editBodyInfo
-      editBodyInfo.editList.forEach((o, i) => {
+      editBodyInfo.editList.forEach((o) => {
         o.type = "question";
         // o.parentId = -1;
         const buttonList = _.cloneDeep(o.buttonList);
@@ -594,20 +594,20 @@ export default {
         buttonList.forEach((btn, index) => {
           console.log("btn:=>", btn);
           let url = btn.url;
-          let type = btn.type;
+          // let type = btn.type;
           if (btn.type === "nation") {
             url = "/nation " + url;
           }
-          if (btn.isCallback) {
-            type = "callback";
-          }
+          // if (btn.isCallback) {
+          //   type = "callback";
+          // }
 
           buttonList[index] = {
             text: btn.text,
             type: "callback",
             subType: "question",
             isCallback: btn.isCallback,
-            url: url.replace(/\"right\":\d{1}/g, `"right":${btn.right || 0}`),
+            url: url.replace(/"right":\d{1}/g, `"right":${btn.right || 0}`),
             right: btn.right,
           };
         });

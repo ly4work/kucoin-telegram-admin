@@ -1,7 +1,6 @@
 import axios from "axios";
-// import Config from "./../base/Config";
 
-export const baseURL = !process.env.NODE_ENV ? '' : '/kc2j/'
+export const baseURL = process.env.NODE_ENV ? '' : '/kc2j/'
 
 const axiosInstance = axios.create({
   baseURL: baseURL,

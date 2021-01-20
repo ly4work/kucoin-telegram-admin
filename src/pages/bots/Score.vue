@@ -1,5 +1,5 @@
 <template>
-  <main-layout>
+  <div>
     <el-row :gutter="20">
       <el-col :span="4">
         <el-input v-model="criteria.username" placeholder="请输入用户昵称" />
@@ -101,13 +101,13 @@
         <el-button type="primary" @click="createOrUpdate()">确 定</el-button>
       </div>
     </el-dialog>
-  </main-layout>
+  </div>
 </template>
 
 <script>
-import RestApi from "../../base/RestApi";
-import MainLayout from "../../layouts/MainLayout";
-import _ from "lodash";
+// import RestApi from "../../base/RestApi";
+// import MainLayout from "../../layouts/MainLayout";
+// import _ from "lodash";
 import languageList, { languageMap } from "../../profile/lang";
 import http from "../../http";
 import { Loading } from "element-ui";
@@ -115,7 +115,7 @@ import { Loading } from "element-ui";
 export default {
   name: "course",
   components: {
-    MainLayout,
+    // MainLayout,
   },
   data: function() {
     return {

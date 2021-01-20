@@ -1,5 +1,5 @@
 <template>
-  <main-layout>
+  <div>
     <el-row :gutter="20">
       <el-col :span="3">
         <el-button type="primary" @click="this.handleCreate" icon="el-icon-plus"
@@ -220,12 +220,12 @@
         ></el-option>
       </el-select>
     </el-dialog>
-  </main-layout>
+  </div>
 </template>
 
 <script>
-import RestApi from "../../base/RestApi";
-import MainLayout from "../../layouts/MainLayout";
+// import RestApi from "../../base/RestApi";
+// import MainLayout from "../../layouts/MainLayout";
 import _ from "lodash";
 import languageList, { languageMap } from "../../profile/lang";
 import mixinButton, { buttonMap } from "../../profile/buttons";
@@ -236,7 +236,7 @@ import { Loading } from "element-ui";
 export default {
   name: "botentry",
   components: {
-    MainLayout,
+    // MainLayout,
   },
   data: function() {
     return {
@@ -470,7 +470,6 @@ export default {
         //     subType: buttonMap[val].subType,
         //   })
         // );
-      } else if (val === "url") {
       }
       this.editBodyInfo = editBodyInfo;
       this.$nextTick(() => {
@@ -539,7 +538,7 @@ export default {
           },
         ],
       };
-      item.relaList.forEach((o, i) => {
+      item.relaList.forEach((o) => {
         const buttonList = JSON.parse(o.buttonArray || "[]");
         buttonList.forEach((btn, index) => {
           if (btn.type === "nation") {
@@ -639,7 +638,7 @@ export default {
 
       const editBodyInfo = _.cloneDeep(this.editBodyInfo);
       //  外层循环editBodyInfo
-      editBodyInfo.editList.forEach((o, i) => {
+      editBodyInfo.editList.forEach((o) => {
         o.type = "bind";
         o.parentId = -1;
         const buttonList = _.cloneDeep(o.buttonList);
@@ -820,5 +819,6 @@ export default {
   height: 100vh;
   padding-bottom: 30px;
   overflow-y: scroll;
+  padding-top: 30px;
 }
 </style>

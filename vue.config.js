@@ -1,7 +1,5 @@
 const webpack = require("webpack");
-// const config = require('./src/config/ssoEnv')
 const path = require("path");
-// const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 function resolve(dir) {
   return path.join(__dirname, dir);
@@ -24,7 +22,7 @@ const proxyMap = {
 const publicPath = "/mybot/";
 
 module.exports = {
-  publicPath: process.env.NODE_ENV === "development" ? "/assets/" : publicPath,
+  publicPath: process.env.NODE_ENV === "development" ? "/" : publicPath,
   lintOnSave: true,
   pages: {
     index: {

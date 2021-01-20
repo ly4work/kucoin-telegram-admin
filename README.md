@@ -1,24 +1,7 @@
-# kucoin-telegram-admin
+# kc-telegram2j
+kc.login.url    : check login or not 
 
-## Project setup
-```
-yarn install
-```
+How to use: 
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+mvn clean spring-boot:run -Dmvn.profile.active=dev -Dkc.login.check=false 
+mvn clean spring-boot:run -Dmvn.profile.active=dev2 -Dkc.login.check=false

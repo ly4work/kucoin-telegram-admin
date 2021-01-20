@@ -1,27 +1,29 @@
 <template>
   <div id="app">
-    <router-view />
+    <main-layout v-if="!isLogin"> </main-layout>
+    <router-view v-if="isLogin"></router-view>
   </div>
 </template>
 
 <script>
-// import HelloWorld from "./components/HelloWorld.vue";
-// import router from './router'
+import MainLayout from "./layouts/MainLayout";
+
 export default {
   name: "App",
   components: {
-    // HelloWorld,
+    MainLayout,
+  },
+  data() {
+    return {
+      isLogin: /login/g.test(location.href),
+    };
   },
 };
 </script>
-
+<style lang="less">
+@import "./styles/reset.less";
+@import "./styles/common.less";
+</style>
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
